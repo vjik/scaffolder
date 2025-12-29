@@ -1,0 +1,11 @@
+parameters:
+  level: 10
+  paths:
+    - src
+  tmpDir: runtime/phpstan-cache
+  editorUrl: "phpstorm://open?file=%%file%%&line=%%line%%"
+  ignoreErrors:
+    - identifier: missingType.iterableValue
+
+includes:
+  - phar://phpstan.phar/conf/bleedingEdge.neon

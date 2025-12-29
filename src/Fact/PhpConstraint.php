@@ -1,0 +1,82 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Vjik\Scaffolder\Fact;
+
+use Composer\Semver\Constraint\ConstraintInterface;
+use Composer\Semver\VersionParser;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputOption;
+use Throwable;
+use Vjik\Scaffolder\Cli;
+use Vjik\Scaffolder\Context;
+use Vjik\Scaffolder\Fact;
+use Vjik\Scaffolder\NormalizeInputException;
+use Vjik\Scaffolder\Params;
+
+/**
+ * @extends Fact<ConstraintInterface>
+ */
+final class PhpConstraint extends Fact
+{
+    public const string VALUE_OPTION = 'php-constraint';
+    public const string SUGGESTION_OPTION = 'php-constraint-suggestion';
+
+    public static function configureCommand(Command $command, Params $params): void
+    {
+        $command->addOption(
+            self::VALUE_OPTION,
+            mode: InputOption::VALUE_OPTIONAL,
+            default: $params->get(self::VALUE_OPTION),
+        );
+        $command->addOption(
+            self::SUGGESTION_OPTION,
+            mode: InputOption::VALUE_OPTIONAL,
+            default: $params->get(self::SUGGESTION_OPTION),
+        );
+    }
+
+    public static function resolve(Cli $cli, Context $context): ConstraintInterface
+    {
+        /** @var string|null $value */
+        $value = $cli->getOption(self::VALUE_OPTION);
+        if ($value !== null && $value !== '') {
+            return self::normalize($value);
+        }
+
+        $composerJson = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
+        $constraintName = $context->getFact(PhpConstraintName::class);
+
+        if (isset($composerJson['require'][$constraintName])) {
+            try {
+                return self::normalize($composerJson['require'][$constraintName]);
+            } catch (NormalizeInputException) {
+            }
+        }
+
+        /** @var string|null $suggestion */
+        $suggestion = $cli->getOption(self::SUGGESTION_OPTION);
+
+        return $cli->ask(
+            question: 'PHP constraint',
+            default: $suggestion ?? '^8.5',
+            normalizer: self::normalize(...),
+        );
+    }
+
+    /**
+     * @throws NormalizeInputException
+     */
+    private static function normalize(string $constraint): ConstraintInterface
+    {
+        /** @var VersionParser */
+        static $parser = new VersionParser();
+
+        try {
+            return $parser->parseConstraints($constraint);
+        } catch (Throwable $exception) {
+            throw new NormalizeInputException($exception->getMessage());
+        }
+    }
+}
