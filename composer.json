@@ -13,5 +13,10 @@
             "email": "sergei@predvoditelev.ru"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "8.5.*",
+        "symfony/console": "^8",
+        "symfony/filesystem": "^8.0",
+        "composer/semver": "^3.4"
+    }
 }
