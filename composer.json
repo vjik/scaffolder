@@ -1,0 +1,17 @@
+{
+    "name": "vjik/scaffolder",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "Vjik\\Scaffolder\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sergei Predvoditelev",
+            "email": "sergei@predvoditelev.ru"
+        }
+    ],
+    "require": {}
+}
