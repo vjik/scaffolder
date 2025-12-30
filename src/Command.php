@@ -17,9 +17,11 @@ final readonly class Command
 {
     /**
      * @param list<Change> $changes
+     * @param array<string, string> $defaults
      */
     public function __construct(
         private array $changes,
+        private array $defaults,
     ) {
     }
 
@@ -62,13 +64,13 @@ final readonly class Command
 
     private function createContext(InputInterface $input, Cli $cli): Context
     {
-        $dir = $input->getArgument('directory');
-        if (!is_dir($dir)) {
+        $directory = $input->getArgument('directory');
+        if (!is_dir($directory)) {
             throw new RuntimeException(
-                sprintf('Directory `%s` does not exist.', $dir)
+                sprintf('Directory `%s` does not exist.', $directory)
             );
         }
 
-        return new Context($dir, $cli);
+        return new Context($directory, $cli, $this->defaults);
     }
 }

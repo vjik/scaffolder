@@ -36,7 +36,7 @@ final readonly class Runner
             $factClass::configureCommand($app, $this->defaults);
         }
 
-        $command = new Command($this->changes);
+        $command = new Command($this->changes, $this->defaults);
 
         $app
             ->setCode($command)

@@ -19,9 +19,13 @@ final class Context
      */
     private array $facts = [];
 
+    /**
+     * @param array<string, string> $defaults
+     */
     public function __construct(
         private readonly string $directory,
         private readonly Cli $cli,
+        private readonly array $defaults,
     ) {
         $this->filesystem = new Filesystem();
     }
@@ -81,6 +85,11 @@ final class Context
         }
 
         return $this->facts[$factClass] = $factClass::resolve($this->cli, $this);
+    }
+
+    public function getDefault(string $key): ?string
+    {
+        return $this->defaults[$key] ?? null;
     }
 
     /**
