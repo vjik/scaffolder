@@ -16,7 +16,7 @@ use function sprintf;
 final readonly class WriteFile implements Change
 {
     /**
-     * @param string|Stringable|(Closure(Context $context): string|Stringable) $callable
+     * @param string|Stringable|(Closure(Context $context): (string|Stringable)) $content
      */
     public function __construct(
         private string $file,
@@ -26,7 +26,7 @@ final readonly class WriteFile implements Change
 
     public function decide(Context $context): ?callable
     {
-        $content = is_callable($this->content)
+        $content = $this->content instanceof Closure
             ? ($this->content)($context)
             : $this->content;
         $content = (string) $content;

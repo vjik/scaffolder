@@ -34,13 +34,20 @@ final class CopyrightYear extends Fact
 
     public static function resolve(Cli $cli, Context $context): mixed
     {
+        /** @var string|null $year */
         $year = $cli->getOption(self::YEAR_VALUE_OPTION);
         if ($year !== null) {
             return CopyrightYearValue::fromString($year);
         }
 
+        /** @var string|null $beginYear */
+        $beginYear = $cli->getOption(self::BEGIN_YEAR_VALUE_OPTION);
+        if ($beginYear === null) {
+            return CopyrightYearValue::now();
+        }
+
         return CopyrightYearValue::fromRange(
-            (int) $cli->getOption(self::BEGIN_YEAR_VALUE_OPTION),
+            (int) $beginYear,
             (int) date('Y'),
         );
     }

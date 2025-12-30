@@ -12,7 +12,7 @@ use Vjik\Scaffolder\Fact;
 /**
  * @phpstan-type Autoload = array{"psr-4"?: array<non-empty-string, non-empty-string>}
  * @phpstan-type Author = array{name?: string, email?: string, homepage?: string, role?: string}
- * @phpstan-type Type = array{
+ * @phpstan-type ComposerJsonArray = array{
  *     name?: non-empty-string,
  *     description?: string,
  *     type?: non-empty-string,
@@ -34,7 +34,7 @@ use Vjik\Scaffolder\Fact;
  *     scripts?: array<non-empty-string, non-empty-string|list<non-empty-string>>,
  *     ...
  * }
- * @extends Fact<Type>
+ * @extends Fact<ComposerJsonArray>
  */
 final class ComposerJson extends Fact
 {
@@ -46,7 +46,7 @@ final class ComposerJson extends Fact
         }
 
         try {
-            /** @var Type */
+            /** @var ComposerJsonArray */
             return json_decode($json, associative: true, flags: JSON_THROW_ON_ERROR);
         } catch (JsonException) {
             return [];

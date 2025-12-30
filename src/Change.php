@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Vjik\Scaffolder;
 
+/**
+ * @phpstan-type ApplierCallable = callable(Cli): void
+ */
 interface Change
 {
     /**
-     * @return (callable(Cli): void)|list<(callable(Cli): void)>|null
+     * @return ApplierCallable|list<ApplierCallable>|null
      */
     public function decide(Context $context): callable|array|null;
 }

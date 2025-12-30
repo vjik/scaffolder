@@ -15,7 +15,7 @@ final class Context
     private readonly Filesystem $filesystem;
 
     /**
-     * @var array<class-string<Fact>, mixed>
+     * @var array<class-string<Fact<*>>, mixed>
      */
     private array $facts = [];
 
@@ -60,7 +60,7 @@ final class Context
     {
         $this->filesystem->dumpFile(
             $this->locateFile($file),
-            $content,
+            (string) $content,
         );
     }
 

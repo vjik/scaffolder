@@ -11,12 +11,12 @@ use Vjik\Scaffolder\Fact;
 final readonly class EnsureFact implements Change
 {
     /**
-     * @var list<class-string<Fact>>
+     * @var list<class-string<Fact<mixed>>>
      */
     private array $facts;
 
     /**
-     * @param class-string<Fact> ...$fact
+     * @param class-string<Fact<mixed>> ...$fact
      * @no-named-arguments
      */
     public function __construct(string ...$fact)

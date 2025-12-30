@@ -22,7 +22,7 @@ final readonly class MitLicense implements LicenseInterface
     ) {
     }
 
-    public function render(Context $context)
+    public function render(Context $context): string
     {
         $year = ($this->year ?? $context->getFact(CopyrightYear::class))->renderAscii();
         $copyrightHolders = $this->copyrightHolders ?? $context->getFact(CopyrightHolder::class);

@@ -16,7 +16,7 @@ use function sprintf;
 final readonly class WriteFileIfNotExists implements Change
 {
     /**
-     * @param string|Stringable|(Closure(Context $context): string|Stringable) $callable
+     * @param string|Stringable|(Closure(Context $context): (string|Stringable)) $content
      */
     public function __construct(
         private string $file,
@@ -30,7 +30,7 @@ final readonly class WriteFileIfNotExists implements Change
             return null;
         }
 
-        $content = is_callable($this->content)
+        $content = $this->content instanceof Closure
             ? ($this->content)($context)
             : $this->content;
 

@@ -18,5 +18,11 @@
         "symfony/console": "^8",
         "symfony/filesystem": "^8.0",
         "composer/semver": "^3.4"
+    },
+    "scripts": {
+        "phpstan": "phpstan analyse -c phpstan.neon"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1"
     }
 }

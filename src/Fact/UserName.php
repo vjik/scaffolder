@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact;
-use Vjik\Scaffolder\NormalizeUserInputException;
+use Vjik\Scaffolder\NormalizeInputException;
 
 /**
  * @extends Fact<non-empty-string>
@@ -37,7 +37,7 @@ final class UserName extends Fact
     {
         /** @var string|null $value */
         $value = $cli->getOption(self::VALUE_OPTION);
-        if ($value !== null) {
+        if ($value !== null && $value !== '') {
             return $value;
         }
 
@@ -50,7 +50,7 @@ final class UserName extends Fact
             normalizer: static function (string $input): string {
                 $input = trim($input);
                 if ($input === '') {
-                    throw new NormalizeUserInputException('Name must not be empty.');
+                    throw new NormalizeInputException('Name must not be empty.');
                 }
                 return $input;
             },

@@ -48,7 +48,7 @@ final readonly class Cli
      * @template T = string
      * @param non-empty-string $question
      * @param (callable(string): T)|null $normalizer
-     * @return T
+     * @return ($normalizer is null ? string : T)
      */
     public function ask(string $question, ?string $default = null, ?callable $normalizer = null): mixed
     {
@@ -61,7 +61,7 @@ final readonly class Cli
 
         try {
             return $normalizer($answer);
-        } catch (NormalizeUserInputException $exception) {
+        } catch (NormalizeInputException $exception) {
             $this->style->error($exception->getMessage());
             return $this->ask($question, $default, $normalizer);
         }

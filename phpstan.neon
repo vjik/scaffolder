@@ -1,0 +1,9 @@
+parameters:
+  level: 10
+  paths:
+    - src
+  tmpDir: runtime/phpstan-cache
+  editorUrl: "phpstorm://open?file=%%file%%&line=%%line%%"
+
+includes:
+  - phar://phpstan.phar/conf/bleedingEdge.neon

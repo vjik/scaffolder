@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact;
-use Vjik\Scaffolder\NormalizeUserInputException;
+use Vjik\Scaffolder\NormalizeInputException;
 
 /**
  * @extends Fact<non-empty-string>
@@ -37,7 +37,7 @@ final class CopyrightHolder extends Fact
     {
         /** @var string|null $value */
         $value = $cli->getOption(self::VALUE_OPTION);
-        if ($value !== null) {
+        if ($value !== null && $value !== '') {
             return $value;
         }
 
@@ -53,7 +53,7 @@ final class CopyrightHolder extends Fact
             normalizer: static function (string $input): string {
                 $input = trim($input);
                 if ($input === '') {
-                    throw new NormalizeUserInputException('Copyright holder must not be empty.');
+                    throw new NormalizeInputException('Copyright holder must not be empty.');
                 }
                 return $input;
             },

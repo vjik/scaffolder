@@ -8,5 +8,5 @@ use Vjik\Scaffolder\Context;
 
 interface LicenseInterface
 {
-    public function render(Context $context);
+    public function render(Context $context): string;
 }

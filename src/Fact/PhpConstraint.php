@@ -6,14 +6,13 @@ namespace Vjik\Scaffolder\Fact;
 
 use Composer\Semver\Constraint\ConstraintInterface;
 use Composer\Semver\VersionParser;
-use InvalidArgumentException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Throwable;
 use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact;
-use Vjik\Scaffolder\NormalizeUserInputException;
+use Vjik\Scaffolder\NormalizeInputException;
 
 /**
  * @extends Fact<ConstraintInterface>
@@ -34,12 +33,12 @@ final class PhpConstraint extends Fact
 
     public static function resolve(Cli $cli, Context $context): ConstraintInterface
     {
-        $composerJson = $context->getFact(ComposerJson::class);
+        $composerJson = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
 
         if (isset($composerJson['require']['php'])) {
             try {
                 return self::normalize($composerJson['require']['php']);
-            } catch (InvalidArgumentException) {
+            } catch (NormalizeInputException) {
             }
         }
 
@@ -54,16 +53,17 @@ final class PhpConstraint extends Fact
     }
 
     /**
-     * @throws NormalizeUserInputException
+     * @throws NormalizeInputException
      */
     private static function normalize(string $constraint): ConstraintInterface
     {
+        /** @var VersionParser */
         static $parser = new VersionParser();
 
         try {
             return $parser->parseConstraints($constraint);
         } catch (Throwable $exception) {
-            throw new NormalizeUserInputException($exception->getMessage());
+            throw new NormalizeInputException($exception->getMessage());
         }
     }
 }

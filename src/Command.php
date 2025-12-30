@@ -13,6 +13,9 @@ use function count;
 use function is_array;
 use function sprintf;
 
+/**
+ * @phpstan-import-type ApplierCallable from Change
+ */
 final readonly class Command
 {
     /**
@@ -37,6 +40,7 @@ final readonly class Command
                 continue;
             }
             if (is_array($applier)) {
+                /** @var list<ApplierCallable> $applier */
                 $appliers = array_merge($appliers, $applier);
             } else {
                 $appliers[] = $applier;
@@ -64,6 +68,7 @@ final readonly class Command
 
     private function createContext(InputInterface $input, Cli $cli): Context
     {
+        /** @var string $directory */
         $directory = $input->getArgument('directory');
         if (!is_dir($directory)) {
             throw new RuntimeException(

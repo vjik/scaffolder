@@ -10,7 +10,7 @@ final readonly class Runner
 {
     /**
      * @param list<Change> $changes
-     * @param list<class-string<Fact>> $factClasses
+     * @param list<class-string<Fact<*>>> $factClasses
      * @param array<string, string> $defaults
      */
     public function __construct(

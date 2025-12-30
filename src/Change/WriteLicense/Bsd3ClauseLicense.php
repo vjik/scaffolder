@@ -22,7 +22,7 @@ final readonly class Bsd3ClauseLicense implements LicenseInterface
     ) {
     }
 
-    public function render(Context $context)
+    public function render(Context $context): string
     {
         $year = ($this->year ?? $context->getFact(CopyrightYear::class))->renderAscii();
         $owner = $this->owner ?? $context->getFact(CopyrightHolder::class);
