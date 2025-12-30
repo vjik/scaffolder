@@ -7,7 +7,7 @@ namespace Vjik\Scaffolder;
 interface Change
 {
     /**
-     * @return (callable(Cli): void)|null
+     * @return (callable(Cli): void)|list<(callable(Cli): void)>|null
      */
-    public function decide(Context $context): ?callable;
+    public function decide(Context $context): callable|array|null;
 }

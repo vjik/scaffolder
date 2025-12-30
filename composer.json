@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": "8.5.*",
+        "php": "8.4.*",
         "symfony/console": "^8",
         "symfony/filesystem": "^8.0",
         "composer/semver": "^3.4"

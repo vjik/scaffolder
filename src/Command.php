@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use function count;
+use function is_array;
 use function sprintf;
 
 final readonly class Command
@@ -27,12 +28,18 @@ final readonly class Command
         $cli = new Cli($input, $output);
         $context = $this->createContext($input, $cli);
 
-        $appliers = array_filter(
-            array_map(
-                static fn(Change $change) => $change->decide($context),
-                $this->changes,
-            ),
-        );
+        $appliers = [];
+        foreach ($this->changes as $change) {
+            $applier = $change->decide($context);
+            if ($applier === null) {
+                continue;
+            }
+            if (is_array($applier)) {
+                $appliers = array_merge($appliers, $applier);
+            } else {
+                $appliers[] = $applier;
+            }
+        }
 
         if ($appliers === []) {
             $cli->success('No changes required.');

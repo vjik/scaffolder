@@ -83,6 +83,19 @@ final class Context
         return $this->facts[$factClass] = $factClass::resolve($this->cli, $this);
     }
 
+    /**
+     * @param non-empty-string $command
+     */
+    public function execute(string $command, bool $throwExceptionOnError = true): ExecuteResult
+    {
+        exec("cd $this->directory && $command", $lines, $code);
+        $result = new ExecuteResult($command, $lines, $code);
+        if ($throwExceptionOnError && !$result->isSuccess()) {
+            $result->throwRuntimeException();
+        }
+        return $result;
+    }
+
     private function locateFile(string $path): string
     {
         if ($this->filesystem->isAbsolutePath($path)) {
