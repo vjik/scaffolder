@@ -17,8 +17,7 @@ final readonly class ExecuteResult
         public string $command,
         public array $lines,
         public int $code,
-    ) {
-    }
+    ) {}
 
     public function isSuccess(): bool
     {
@@ -33,7 +32,7 @@ final readonly class ExecuteResult
                 $this->code,
                 $this->command,
                 implode("\n", $this->lines),
-            )
+            ),
         );
     }
 }

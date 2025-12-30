@@ -25,8 +25,7 @@ final readonly class Command
     public function __construct(
         private array $changes,
         private array $defaults,
-    ) {
-    }
+    ) {}
 
     public function __invoke(InputInterface $input, OutputInterface $output): int
     {
@@ -72,7 +71,7 @@ final readonly class Command
         $directory = $input->getArgument('directory');
         if (!is_dir($directory)) {
             throw new RuntimeException(
-                sprintf('Directory `%s` does not exist.', $directory)
+                sprintf('Directory `%s` does not exist.', $directory),
             );
         }
 

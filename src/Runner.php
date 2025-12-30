@@ -17,8 +17,7 @@ final readonly class Runner
         private array $changes = [],
         private array $factClasses = [],
         private array $defaults = [],
-    ) {
-    }
+    ) {}
 
     public function run(): void
     {

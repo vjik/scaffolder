@@ -15,8 +15,7 @@ final readonly class WriteLicense implements Change
     public function __construct(
         private LicenseInterface $license,
         private string $file = 'LICENSE',
-    ) {
-    }
+    ) {}
 
     public function decide(Context $context): ?callable
     {

@@ -19,8 +19,7 @@ final readonly class Bsd3ClauseLicense implements LicenseInterface
     public function __construct(
         private ?string $owner = null,
         private ?CopyrightYearValue $year = null,
-    ) {
-    }
+    ) {}
 
     public function render(Context $context): string
     {

@@ -15,8 +15,7 @@ final readonly class CopyFileIfNotExists implements Change
     public function __construct(
         private string $origin,
         private string $target,
-    ) {
-    }
+    ) {}
 
     public function decide(Context $context): ?callable
     {

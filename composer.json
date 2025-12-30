@@ -20,9 +20,11 @@
         "composer/semver": "^3.4"
     },
     "scripts": {
+        "cs-fix": "php-cs-fixer fix",
         "phpstan": "phpstan analyse -c phpstan.neon"
     },
     "require-dev": {
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^2.1",
+        "friendsofphp/php-cs-fixer": "^3.92"
     }
 }

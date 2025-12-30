@@ -19,8 +19,7 @@ final readonly class MitLicense implements LicenseInterface
     public function __construct(
         private ?string $copyrightHolders = null,
         private ?CopyrightYearValue $year = null,
-    ) {
-    }
+    ) {}
 
     public function render(Context $context): string
     {

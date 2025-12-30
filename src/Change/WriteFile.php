@@ -10,7 +10,6 @@ use Vjik\Scaffolder\Change;
 use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 
-use function is_callable;
 use function sprintf;
 
 final readonly class WriteFile implements Change
@@ -21,8 +20,7 @@ final readonly class WriteFile implements Change
     public function __construct(
         private string $file,
         private string|Stringable|Closure $content,
-    ) {
-    }
+    ) {}
 
     public function decide(Context $context): ?callable
     {

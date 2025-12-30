@@ -67,4 +67,3 @@ final class PhpConstraint extends Fact
         }
     }
 }
-

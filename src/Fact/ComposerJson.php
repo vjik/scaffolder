@@ -53,4 +53,3 @@ final class ComposerJson extends Fact
         }
     }
 }
-

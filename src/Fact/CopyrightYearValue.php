@@ -12,9 +12,8 @@ final readonly class CopyrightYearValue
      * @param Closure(string): string $renderer
      */
     private function __construct(
-        private Closure $renderer
-    ) {
-    }
+        private Closure $renderer,
+    ) {}
 
     public static function fromString(string $value): self
     {

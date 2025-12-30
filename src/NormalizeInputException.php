@@ -6,6 +6,4 @@ namespace Vjik\Scaffolder;
 
 use Exception;
 
-final class NormalizeInputException extends Exception
-{
-}
+final class NormalizeInputException extends Exception {}
