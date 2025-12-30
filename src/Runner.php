@@ -29,7 +29,10 @@ final readonly class Runner
             ...$this->factClasses,
             ...[
                 Fact\ComposerJson::class,
+                Fact\CopyrightHolder::class,
+                Fact\CopyrightYear::class,
                 Fact\PhpConstraint::class,
+                Fact\UserName::class,
             ],
         ];
         foreach ($factClasses as $factClass) {

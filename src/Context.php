@@ -87,6 +87,11 @@ final class Context
         return $this->facts[$factClass] = $factClass::resolve($this->cli, $this);
     }
 
+    public function hasFact(string $factClass): bool
+    {
+        return array_key_exists($factClass, $this->facts);
+    }
+
     public function getDefault(string $key): ?string
     {
         return $this->defaults[$key] ?? null;
