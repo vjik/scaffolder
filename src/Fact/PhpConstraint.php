@@ -18,17 +18,17 @@ use Vjik\Scaffolder\NormalizeUserInputException;
 /**
  * @extends Fact<ConstraintInterface>
  */
-final  class PhpConstraint extends Fact
+final class PhpConstraint extends Fact
 {
-    public const string OPTION_NAME = 'php-constraint-default';
-    private const string DEFAULT = '^8.5';
+    public const string SUGGESTION_OPTION = 'php-constraint-suggestion';
+    private const string SUGGESTION = '^8.5';
 
     public static function configureCommand(Command $command, array $defaults): void
     {
         $command->addOption(
-            self::OPTION_NAME,
+            self::SUGGESTION_OPTION,
             mode: InputOption::VALUE_REQUIRED,
-            default: $defaults[self::OPTION_NAME] ?? self::DEFAULT,
+            default: $defaults[self::SUGGESTION_OPTION] ?? self::SUGGESTION,
         );
     }
 
@@ -43,16 +43,19 @@ final  class PhpConstraint extends Fact
             }
         }
 
-        /** @var string $default */
-        $default = $cli->getOption(self::OPTION_NAME);
+        /** @var string $suggestion */
+        $suggestion = $cli->getOption(self::SUGGESTION_OPTION);
 
         return $cli->ask(
             question: 'PHP constraint',
-            default: $default,
+            default: $suggestion,
             normalizer: self::normalize(...),
         );
     }
 
+    /**
+     * @throws NormalizeUserInputException
+     */
     private static function normalize(string $constraint): ConstraintInterface
     {
         static $parser = new VersionParser();
