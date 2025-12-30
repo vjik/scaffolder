@@ -13,7 +13,7 @@ use Vjik\Scaffolder\Context;
 use function is_callable;
 use function sprintf;
 
-final readonly class CustomFileIfNotExists implements Change
+final readonly class WriteFile implements Change
 {
     /**
      * @param string|Stringable|(Closure(Context $context): string|Stringable) $callable
@@ -26,13 +26,14 @@ final readonly class CustomFileIfNotExists implements Change
 
     public function decide(Context $context): ?callable
     {
-        if ($context->fileExists($this->file)) {
-            return null;
-        }
-
         $content = is_callable($this->content)
             ? ($this->content)($context)
             : $this->content;
+        $content = (string) $content;
+
+        if ($context->tryReadFile($this->file) === $content) {
+            return null;
+        }
 
         return fn(Cli $cli) => $cli->step(
             sprintf('Write `%s`', $this->file),
