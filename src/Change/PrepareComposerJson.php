@@ -8,6 +8,7 @@ use Vjik\Scaffolder\Change;
 use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact\ComposerJson;
+use Vjik\Scaffolder\Fact\PackageName;
 
 final readonly class PrepareComposerJson implements Change
 {
@@ -19,6 +20,7 @@ final readonly class PrepareComposerJson implements Change
     {
         $new = $original = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
 
+        $new['name'] = $context->getFact(PackageName::class);
         if ($this->type !== null) {
             $new['type'] = $this->type;
         }
