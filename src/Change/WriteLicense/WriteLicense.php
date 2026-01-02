@@ -26,7 +26,7 @@ final readonly class WriteLicense implements Change
 
         return fn(Cli $cli) => $cli->step(
             sprintf('Write `%s`', $this->file),
-            fn() => $context->writeFile($this->file, $text),
+            fn() => $context->writeTextFile($this->file, $text),
         );
     }
 }
