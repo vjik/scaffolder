@@ -16,6 +16,7 @@ final readonly class Runner
         Fact\CopyrightHolder::class,
         Fact\CopyrightYear::class,
         Fact\PackageVendor::class,
+        Fact\PackageProject::class,
         Fact\PhpConstraint::class,
         Fact\UserName::class,
     ];
