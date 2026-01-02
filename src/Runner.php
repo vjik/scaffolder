@@ -18,6 +18,7 @@ final readonly class Runner
         Fact\PackageVendor::class,
         Fact\PackageProject::class,
         Fact\PackageName::class,
+        Fact\PackageType::class,
         Fact\PhpConstraint::class,
         Fact\UserName::class,
     ];

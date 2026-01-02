@@ -9,21 +9,16 @@ use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact\ComposerJson;
 use Vjik\Scaffolder\Fact\PackageName;
+use Vjik\Scaffolder\Fact\PackageType;
 
 final readonly class PrepareComposerJson implements Change
 {
-    public function __construct(
-        private ?string $type = null,
-    ) {}
-
     public function decide(Context $context): callable|array|null
     {
         $new = $original = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
 
         $new['name'] = $context->getFact(PackageName::class);
-        if ($this->type !== null) {
-            $new['type'] = $this->type;
-        }
+        $new['type'] = $context->getFact(PackageType::class);
 
         if ($new === $original) {
             return null;
