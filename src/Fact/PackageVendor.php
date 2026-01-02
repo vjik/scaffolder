@@ -45,8 +45,9 @@ final class PackageVendor extends Fact
         $composerJson = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
         if (isset($composerJson['name']) && str_contains($composerJson['name'], '/')) {
             $vendor = explode('/', $composerJson['name'], 2)[0];
-            if ($vendor !== '') {
-                return $vendor;
+            try {
+                return self::normalize($vendor);
+            } catch (NormalizeInputException) {
             }
         }
 
@@ -56,16 +57,25 @@ final class PackageVendor extends Fact
         return $cli->ask(
             question: 'Package vendor',
             default: $default,
-            normalizer: static function (string $input): string {
-                $input = trim($input);
-                if ($input === '') {
-                    throw new NormalizeInputException('Package vendor must not be empty.');
-                }
-                if (str_contains($input, '/')) {
-                    throw new NormalizeInputException('Package vendor must not contain "/".');
-                }
-                return $input;
-            },
+            normalizer: self::normalize(...),
         );
+    }
+
+    /**
+     * @return non-empty-string
+     * @throws NormalizeInputException
+     */
+    private static function normalize(string $input): string
+    {
+        $value = trim($input);
+        if ($value === '') {
+            throw new NormalizeInputException('Package vendor must not be empty.');
+        }
+        if (preg_match('/^[a-z0-9]([_.-]?[a-z0-9]+)*$/', $value) !== 1) {
+            throw new NormalizeInputException(
+                'Package vendor must contain only lowercase letters, digits, and separators (_, ., -). It must start with a letter or digit, and separators cannot be consecutive.',
+            );
+        }
+        return $value;
     }
 }
