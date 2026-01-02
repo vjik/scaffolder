@@ -13,8 +13,7 @@ final readonly class Params
      */
     public function __construct(
         private array $params,
-    ) {
-    }
+    ) {}
 
     public function has(string $key): bool
     {

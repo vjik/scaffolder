@@ -9,6 +9,18 @@ use Symfony\Component\Console\SingleCommandApplication;
 final readonly class Runner
 {
     /**
+     * @var list<class-string<Fact<*>>>
+     */
+    private const array BUILT_IN_FACT_CLASSES = [
+        Fact\ComposerJson::class,
+        Fact\CopyrightHolder::class,
+        Fact\CopyrightYear::class,
+        Fact\PackageVendor::class,
+        Fact\PhpConstraint::class,
+        Fact\UserName::class,
+    ];
+
+    /**
      * @param list<Change> $changes
      * @param list<class-string<Fact<*>>> $factClasses
      * @param array<string, mixed> $params
@@ -28,13 +40,7 @@ final readonly class Runner
 
         $factClasses = [
             ...$this->factClasses,
-            ...[
-                Fact\ComposerJson::class,
-                Fact\CopyrightHolder::class,
-                Fact\CopyrightYear::class,
-                Fact\PhpConstraint::class,
-                Fact\UserName::class,
-            ],
+            ...self::BUILT_IN_FACT_CLASSES,
         ];
         foreach ($factClasses as $factClass) {
             $factClass::configureCommand($app, $params);

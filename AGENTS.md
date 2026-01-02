@@ -61,7 +61,7 @@ There is currently no test suite configured in this project.
 - `resolve(Cli $cli, Context $context): T` - Compute/prompt for the fact value
 - `configureCommand()` - Optional: add CLI options for this fact
 - Facts are lazily resolved and cached in Context
-- Built-in facts: `ComposerJson`, `CopyrightHolder`, `CopyrightYear`, `PhpConstraint`, `UserName`
+- All built-in facts must be listed in the `Runner::BUILT_IN_FACT_CLASSES` constant
 
 **Params Class**
 - Readonly immutable container for arbitrary parameters
@@ -90,6 +90,11 @@ execution, allowing the Command to collect all planned changes before applying.
 **Composer Normalize**: Uses bundled phar at root level
 
 ## Development Guidelines
+
+### Code Style
+
+- **Do NOT add comments inside methods** unless explicitly requested. Code should be self-explanatory.
+- **PHPStan ignore for `ComposerJson`**: When using `Context::getFact(ComposerJson::class)`, add `// @phpstan-ignore argument.type` to suppress the template covariance error.
 
 ### File Writing
 

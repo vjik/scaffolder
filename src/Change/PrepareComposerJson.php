@@ -13,8 +13,7 @@ final readonly class PrepareComposerJson implements Change
 {
     public function __construct(
         private ?string $type = null,
-    ) {
-    }
+    ) {}
 
     public function decide(Context $context): callable|array|null
     {
