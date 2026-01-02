@@ -61,6 +61,16 @@ final class Context
         );
     }
 
+    public function writeTextFile(string $file, string|Stringable $content = ''): void
+    {
+        $content = (string) $content;
+        if ($content !== '' && !str_ends_with($content, "\n")) {
+            $content .= "\n";
+        }
+
+        $this->writeFile($file, $content);
+    }
+
     public function copyFile(string $origin, string $target): void
     {
         $this->filesystem->copy(
