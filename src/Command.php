@@ -20,11 +20,10 @@ final readonly class Command
 {
     /**
      * @param list<Change> $changes
-     * @param array<string, string> $defaults
      */
     public function __construct(
         private array $changes,
-        private array $defaults,
+        private Params $params,
     ) {}
 
     public function __invoke(InputInterface $input, OutputInterface $output): int
@@ -75,6 +74,6 @@ final readonly class Command
             );
         }
 
-        return new Context($directory, $cli, $this->defaults);
+        return new Context($directory, $cli, $this->params);
     }
 }

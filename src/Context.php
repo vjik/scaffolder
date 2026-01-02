@@ -19,13 +19,10 @@ final class Context
      */
     private array $facts = [];
 
-    /**
-     * @param array<string, string> $defaults
-     */
     public function __construct(
         private readonly string $directory,
         private readonly Cli $cli,
-        private readonly array $defaults,
+        private readonly Params $params,
     ) {
         $this->filesystem = new Filesystem();
     }
@@ -92,9 +89,14 @@ final class Context
         return array_key_exists($factClass, $this->facts);
     }
 
-    public function getDefault(string $key): ?string
+    public function hasParam(string $key): bool
     {
-        return $this->defaults[$key] ?? null;
+        return $this->params->has($key);
+    }
+
+    public function getParam(string $key, mixed $default = null): mixed
+    {
+        return $this->params->get($key, $default);
     }
 
     /**

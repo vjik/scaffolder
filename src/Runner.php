@@ -11,16 +11,18 @@ final readonly class Runner
     /**
      * @param list<Change> $changes
      * @param list<class-string<Fact<*>>> $factClasses
-     * @param array<string, string> $defaults
+     * @param array<string, mixed> $params
      */
     public function __construct(
         private array $changes = [],
         private array $factClasses = [],
-        private array $defaults = [],
+        private array $params = [],
     ) {}
 
     public function run(): void
     {
+        $params = new Params($this->params);
+
         $app = new SingleCommandApplication()
             ->addArgument('directory', default: getcwd());
 
@@ -35,10 +37,10 @@ final readonly class Runner
             ],
         ];
         foreach ($factClasses as $factClass) {
-            $factClass::configureCommand($app, $this->defaults);
+            $factClass::configureCommand($app, $params);
         }
 
-        $command = new Command($this->changes, $this->defaults);
+        $command = new Command($this->changes, $params);
 
         $app
             ->setCode($command)

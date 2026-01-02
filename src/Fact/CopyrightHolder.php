@@ -10,6 +10,7 @@ use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact;
 use Vjik\Scaffolder\NormalizeInputException;
+use Vjik\Scaffolder\Params;
 
 /**
  * @extends Fact<non-empty-string>
@@ -19,17 +20,17 @@ final class CopyrightHolder extends Fact
     private const string VALUE_OPTION = 'copyright-holder';
     private const string SUGGESTION_OPTION = 'copyright-holder-suggestion';
 
-    public static function configureCommand(SymfonyCommand $command, array $defaults): void
+    public static function configureCommand(SymfonyCommand $command, Params $params): void
     {
         $command->addOption(
             self::VALUE_OPTION,
             mode: InputOption::VALUE_OPTIONAL,
-            default: $defaults[self::VALUE_OPTION] ?? null,
+            default: $params->get(self::VALUE_OPTION),
         );
         $command->addOption(
             self::SUGGESTION_OPTION,
             mode: InputOption::VALUE_OPTIONAL,
-            default: $defaults[self::SUGGESTION_OPTION] ?? null,
+            default: $params->get(self::SUGGESTION_OPTION),
         );
     }
 

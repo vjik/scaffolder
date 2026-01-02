@@ -16,10 +16,7 @@ abstract class Fact
      */
     abstract public static function resolve(Cli $cli, Context $context): mixed;
 
-    /**
-     * @param array<string, string> $defaults
-     */
-    public static function configureCommand(SymfonyCommand $command, array $defaults): void
+    public static function configureCommand(SymfonyCommand $command, Params $params): void
     {
         // do nothing by default
     }

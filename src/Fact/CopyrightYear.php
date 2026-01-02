@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact;
+use Vjik\Scaffolder\Params;
 
 /**
  * @extends Fact<CopyrightYearValue>
@@ -18,17 +19,17 @@ final class CopyrightYear extends Fact
     private const string YEAR_VALUE_OPTION = 'copyright-year';
     private const string BEGIN_YEAR_VALUE_OPTION = 'copyright-year-begin';
 
-    public static function configureCommand(SymfonyCommand $command, array $defaults): void
+    public static function configureCommand(SymfonyCommand $command, Params $params): void
     {
         $command->addOption(
             self::YEAR_VALUE_OPTION,
             mode: InputOption::VALUE_OPTIONAL,
-            default: $defaults[self::YEAR_VALUE_OPTION] ?? null,
+            default: $params->get(self::YEAR_VALUE_OPTION),
         );
         $command->addOption(
             self::BEGIN_YEAR_VALUE_OPTION,
             mode: InputOption::VALUE_OPTIONAL,
-            default: $defaults[self::BEGIN_YEAR_VALUE_OPTION] ?? date('Y'),
+            default: $params->get(self::BEGIN_YEAR_VALUE_OPTION),
         );
     }
 

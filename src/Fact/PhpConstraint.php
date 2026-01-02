@@ -13,6 +13,7 @@ use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact;
 use Vjik\Scaffolder\NormalizeInputException;
+use Vjik\Scaffolder\Params;
 
 /**
  * @extends Fact<ConstraintInterface>
@@ -22,12 +23,12 @@ final class PhpConstraint extends Fact
     public const string SUGGESTION_OPTION = 'php-constraint-suggestion';
     private const string SUGGESTION = '^8.5';
 
-    public static function configureCommand(Command $command, array $defaults): void
+    public static function configureCommand(Command $command, Params $params): void
     {
         $command->addOption(
             self::SUGGESTION_OPTION,
             mode: InputOption::VALUE_REQUIRED,
-            default: $defaults[self::SUGGESTION_OPTION] ?? self::SUGGESTION,
+            default: $params->get(self::SUGGESTION_OPTION, self::SUGGESTION),
         );
     }
 
