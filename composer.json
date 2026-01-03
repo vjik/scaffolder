@@ -17,7 +17,8 @@
         "php": "8.4.*",
         "symfony/console": "^8",
         "symfony/filesystem": "^8.0",
-        "composer/semver": "^3.4"
+        "composer/semver": "^3.4",
+        "yiisoft/strings": "^2.7"
     },
     "scripts": {
         "cs-fix": "php-cs-fixer fix",

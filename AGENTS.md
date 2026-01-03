@@ -99,6 +99,7 @@ execution, allowing the Command to collect all planned changes before applying.
 ### Code Style
 
 - **Do NOT add comments inside methods** unless explicitly requested. Code should be self-explanatory.
+- **Do NOT use `assert()`** for type assertions or runtime checks. Rely on PHPStan's static analysis instead.
 - **PHPStan ignore for `ComposerJson`**: When using `Context::getFact(ComposerJson::class)`, add `// @phpstan-ignore argument.type` to suppress the template covariance error.
 
 ### Fact Normalization

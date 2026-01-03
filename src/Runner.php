@@ -19,6 +19,7 @@ final readonly class Runner
         Fact\PackageVendor::class,
         Fact\PackageProject::class,
         Fact\PackageName::class,
+        Fact\NamespaceX::class,
         Fact\PackageDescription::class,
         Fact\PackageLicense::class,
         Fact\PackageType::class,
