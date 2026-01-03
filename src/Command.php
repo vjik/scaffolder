@@ -67,7 +67,7 @@ final readonly class Command
     private function createContext(InputInterface $input, Cli $cli): Context
     {
         /** @var string $directory */
-        $directory = $input->getArgument('directory');
+        $directory = $input->getOption('directory');
         if (!is_dir($directory)) {
             throw new RuntimeException(
                 sprintf('Directory `%s` does not exist.', $directory),

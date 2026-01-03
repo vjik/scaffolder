@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Vjik\Scaffolder;
 
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\SingleCommandApplication;
 
 final readonly class Runner
@@ -46,10 +49,11 @@ final readonly class Runner
 
     public function run(): void
     {
-        $params = new Params($this->params);
+        $params = $this->createParams();
 
         $app = new SingleCommandApplication()
-            ->addArgument('directory', default: getcwd());
+            ->addOption('directory', mode: InputOption::VALUE_OPTIONAL, default: getcwd())
+            ->addOption('scaffolder-file', mode: InputOption::VALUE_OPTIONAL, default: 'scaffolder.php');
 
         $factClasses = [
             ...$this->factClasses,
@@ -64,5 +68,31 @@ final readonly class Runner
         $app
             ->setCode($command)
             ->run();
+    }
+
+    private function createParams(): Params
+    {
+        $input = new ArgvInput(
+            definition: new InputDefinition([
+                new InputOption('directory', mode: InputOption::VALUE_OPTIONAL, default: getcwd()),
+                new InputOption('scaffolder-file', mode: InputOption::VALUE_OPTIONAL, default: 'scaffolder.php'),
+            ]),
+        );
+
+        /** @var string $directory */
+        $directory = $input->getOption('directory');
+
+        /** @var string $fileName */
+        $fileName = $input->getOption('scaffolder-file');
+
+        $scaffolderFile = $directory . '/' . $fileName;
+
+        if (file_exists($scaffolderFile)) {
+            /** @var array<string, mixed> $paramsFromFile */
+            $paramsFromFile = require $scaffolderFile;
+            return new Params(array_merge($this->params, $paramsFromFile));
+        }
+
+        return new Params($this->params);
     }
 }
