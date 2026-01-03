@@ -24,6 +24,7 @@ use function dirname;
 
 /**
  * @phpstan-type BumpAfterUpdateLogicClosure = Closure("dev"|"no-dev"|bool|null, Context): ("dev"|"no-dev"|bool|null)
+ * @phpstan-type CustomChangeClosure = Closure(ComposerJsonArray, Context): array
  * @phpstan-import-type ComposerJsonArray from ComposerJson
  */
 final readonly class PrepareComposerJson implements Change
@@ -35,11 +36,13 @@ final readonly class PrepareComposerJson implements Change
 
     /**
      * @param BumpAfterUpdateLogicClosure|false|null $bumpAfterUpdateLogic
+     * @param CustomChangeClosure|null $customChange
      */
     public function __construct(
         Closure|false|null $bumpAfterUpdateLogic = null,
         private bool $prepareAutoload = true,
         private bool $prepareAutoloadDev = true,
+        private ?Closure $customChange = null,
     ) {
         $this->bumpAfterUpdateLogic = $bumpAfterUpdateLogic ?? $this->bumpAfterUpdateLogic(...);
     }
@@ -60,6 +63,10 @@ final readonly class PrepareComposerJson implements Change
         $new['config']['sort-packages'] = true;
         $this->prepareAutoload($new, $context);
         $this->prepareBumpAfterUpdate($new, $context);
+
+        if ($this->customChange !== null) {
+            $new = ($this->customChange)($new, $context); // @phpstan-ignore argument.type
+        }
 
         if ($new === $original) {
             return null;
