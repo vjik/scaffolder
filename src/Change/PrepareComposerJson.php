@@ -20,6 +20,8 @@ use Vjik\Scaffolder\Fact\SourceDirectory;
 use Vjik\Scaffolder\Fact\TestsDirectory;
 use Vjik\Scaffolder\Value\PackageAuthor;
 
+use function dirname;
+
 /**
  * @phpstan-type BumpAfterUpdateLogicClosure = Closure("dev"|"no-dev"|bool|null, Context): ("dev"|"no-dev"|bool|null)
  * @phpstan-import-type ComposerJsonArray from ComposerJson
@@ -42,7 +44,7 @@ final readonly class PrepareComposerJson implements Change
         $this->bumpAfterUpdateLogic = $bumpAfterUpdateLogic ?? $this->bumpAfterUpdateLogic(...);
     }
 
-    public function decide(Context $context): callable|array|null
+    public function decide(Context $context): ?array
     {
         $new = $original = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
 
@@ -65,10 +67,18 @@ final readonly class PrepareComposerJson implements Change
 
         $content = json_encode($new, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
-        return static fn(Cli $cli) => $cli->step(
-            'Write `composer.json`',
-            static fn() => $context->writeTextFile('composer.json', $content),
-        );
+        return [
+            static fn(Cli $cli) => $cli->step(
+                'Write `composer.json`',
+                static fn() => $context->writeTextFile('composer.json', $content),
+            ),
+            static fn(Cli $cli) => $cli->step(
+                'Normalize `composer.json`',
+                static fn() => $context->execute(
+                    dirname(__DIR__, 2) . '/composer-normalize.phar' . ' --no-check-lock --no-update-lock',
+                ),
+            ),
+        ];
     }
 
     private function prepareAutoload(array &$composerJson, Context $context): void
