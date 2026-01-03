@@ -16,6 +16,8 @@ use Vjik\Scaffolder\Fact\PackageLicense;
 use Vjik\Scaffolder\Fact\PackageName;
 use Vjik\Scaffolder\Fact\PackageType;
 use Vjik\Scaffolder\Fact\PhpConstraint;
+use Vjik\Scaffolder\Fact\PrepareComposerAutoload;
+use Vjik\Scaffolder\Fact\PrepareComposerAutoloadDev;
 use Vjik\Scaffolder\Fact\SourceDirectory;
 use Vjik\Scaffolder\Fact\TestsDirectory;
 use Vjik\Scaffolder\Value\PackageAuthor;
@@ -40,8 +42,6 @@ final readonly class PrepareComposerJson implements Change
      */
     public function __construct(
         Closure|false|null $bumpAfterUpdateLogic = null,
-        private bool $prepareAutoload = true,
-        private bool $prepareAutoloadDev = true,
         private ?Closure $customChange = null,
     ) {
         $this->bumpAfterUpdateLogic = $bumpAfterUpdateLogic ?? $this->bumpAfterUpdateLogic(...);
@@ -92,8 +92,10 @@ final readonly class PrepareComposerJson implements Change
     {
         /** @var ComposerJsonArray $composerJson */
 
-        $isSrcNeeded = $this->prepareAutoload && !isset($composerJson['autoload']['psr-4']);
-        $isTestsNeeded = $this->prepareAutoloadDev && !isset($composerJson['autoload-dev']['psr-4']);
+        $isSrcNeeded = $context->getFact(PrepareComposerAutoload::class)
+            && !isset($composerJson['autoload']['psr-4']);
+        $isTestsNeeded = $context->getFact(PrepareComposerAutoloadDev::class)
+            && !isset($composerJson['autoload-dev']['psr-4']);
 
         if ($isSrcNeeded || $isTestsNeeded) {
             $namespace = $context->getFact(NamespaceX::class);
