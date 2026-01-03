@@ -65,7 +65,7 @@ final readonly class PrepareComposerJson implements Change
         $this->prepareBumpAfterUpdate($new, $context);
 
         if ($this->customChange !== null) {
-            $new = ($this->customChange)($new, $context); // @phpstan-ignore argument.type
+            ($this->customChange)($new, $context); // @phpstan-ignore argument.type
         }
 
         if ($new === $original) {
