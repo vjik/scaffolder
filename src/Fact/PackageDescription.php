@@ -35,6 +35,11 @@ final class PackageDescription extends Fact
             return $value;
         }
 
+        $composerJson = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
+        if (isset($composerJson['description']) && $composerJson['description'] !== '') {
+            return $composerJson['description'];
+        }
+
         return $context->getFact(Title::class);
     }
 }
