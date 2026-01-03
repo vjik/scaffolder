@@ -68,6 +68,11 @@ There is currently no test suite configured in this project.
 - Passed to Runner, accessible via Context
 - Used to pass configuration to Change/Fact objects
 
+**Value Objects** (`src/Value/`)
+- Immutable value objects that encapsulate domain-specific data
+- Provide type-safe, validated representations of business concepts
+- Used by Facts and Changes to work with structured data
+
 ## Key Patterns
 
 **Decision-Based Changes**: Changes inspect Context and decide whether to apply. This allows idempotent operations - 

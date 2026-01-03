@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Vjik\Scaffolder\Fact;
+namespace Vjik\Scaffolder\Value;
 
 use Closure;
 
-final readonly class CopyrightYearValue
+final readonly class CopyrightYear
 {
     /**
      * @param Closure(string): string $renderer

@@ -7,7 +7,7 @@ namespace Vjik\Scaffolder\Change\WriteLicense;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact\CopyrightHolder;
 use Vjik\Scaffolder\Fact\CopyrightYear;
-use Vjik\Scaffolder\Fact\CopyrightYearValue;
+use Vjik\Scaffolder\Value\CopyrightYear as CopyrightYearValue;
 
 /**
  * BSD 3-Clause "New" or "Revised" License

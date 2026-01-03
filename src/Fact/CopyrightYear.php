@@ -10,6 +10,7 @@ use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact;
 use Vjik\Scaffolder\Params;
+use Vjik\Scaffolder\Value\CopyrightYear as CopyrightYearValue;
 
 /**
  * @extends Fact<CopyrightYearValue>
