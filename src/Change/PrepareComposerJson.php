@@ -10,6 +10,7 @@ use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact\ComposerJson;
 use Vjik\Scaffolder\Fact\PackageAuthors;
 use Vjik\Scaffolder\Fact\PackageDescription;
+use Vjik\Scaffolder\Fact\PackageLicense;
 use Vjik\Scaffolder\Fact\PackageName;
 use Vjik\Scaffolder\Fact\PackageType;
 use Vjik\Scaffolder\Fact\PhpConstraint;
@@ -24,6 +25,7 @@ final readonly class PrepareComposerJson implements Change
         $new['name'] = $context->getFact(PackageName::class);
         $new['type'] = $context->getFact(PackageType::class);
         $new['description'] = $context->getFact(PackageDescription::class);
+        $new['license'] = $context->getFact(PackageLicense::class);
         $new['authors'] = array_map(
             static fn(PackageAuthor $author) => $author->toArray(),
             $context->getFact(PackageAuthors::class),
