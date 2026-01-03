@@ -37,6 +37,7 @@ final class Title extends Fact
 
         $packageName = $context->getFact(PackageName::class);
 
+        /** @var non-empty-string $title */
         $title = preg_replace_callback(
             '~[-_./]+(\w)~',
             static fn(array $matches): string => ' ' . strtoupper($matches[1]),
