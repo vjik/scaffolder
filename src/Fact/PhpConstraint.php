@@ -21,14 +21,13 @@ use Vjik\Scaffolder\Params;
 final class PhpConstraint extends Fact
 {
     public const string SUGGESTION_OPTION = 'php-constraint-suggestion';
-    private const string SUGGESTION = '^8.5';
 
     public static function configureCommand(Command $command, Params $params): void
     {
         $command->addOption(
             self::SUGGESTION_OPTION,
             mode: InputOption::VALUE_REQUIRED,
-            default: $params->get(self::SUGGESTION_OPTION, self::SUGGESTION),
+            default: $params->get(self::SUGGESTION_OPTION),
         );
     }
 
@@ -43,12 +42,12 @@ final class PhpConstraint extends Fact
             }
         }
 
-        /** @var string $suggestion */
+        /** @var string|null $suggestion */
         $suggestion = $cli->getOption(self::SUGGESTION_OPTION);
 
         return $cli->ask(
             question: 'PHP constraint',
-            default: $suggestion,
+            default: $suggestion ?? '^8.5',
             normalizer: self::normalize(...),
         );
     }

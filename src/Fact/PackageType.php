@@ -18,7 +18,7 @@ use Vjik\Scaffolder\Params;
 final class PackageType extends Fact
 {
     private const string VALUE_OPTION = 'package-type';
-    private const string DEFAULT_OPTION = 'package-type-default';
+    private const string SUGGESTION_OPTION = 'package-type-default';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {
@@ -28,9 +28,9 @@ final class PackageType extends Fact
             default: $params->get(self::VALUE_OPTION),
         );
         $command->addOption(
-            self::DEFAULT_OPTION,
+            self::SUGGESTION_OPTION,
             mode: InputOption::VALUE_OPTIONAL,
-            default: $params->get(self::DEFAULT_OPTION),
+            default: $params->get(self::SUGGESTION_OPTION),
         );
     }
 
@@ -47,12 +47,12 @@ final class PackageType extends Fact
             return $composerJson['type'];
         }
 
-        /** @var string|null $default */
-        $default = $cli->getOption(self::DEFAULT_OPTION);
+        /** @var string|null $suggestion */
+        $suggestion = $cli->getOption(self::SUGGESTION_OPTION);
 
         return $cli->ask(
             question: 'Package type',
-            default: $default ?? 'library',
+            default: $suggestion ?? 'library',
             normalizer: self::normalize(...),
         );
     }

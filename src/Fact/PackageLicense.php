@@ -30,7 +30,7 @@ final class PackageLicense extends Fact
         $command->addOption(
             self::SUGGESTION_OPTION,
             mode: InputOption::VALUE_OPTIONAL,
-            default: $params->get(self::SUGGESTION_OPTION) ?? 'MIT',
+            default: $params->get(self::SUGGESTION_OPTION),
         );
     }
 
@@ -47,12 +47,12 @@ final class PackageLicense extends Fact
             return $composerJson['license'];
         }
 
-        /** @var string $suggestion */
+        /** @var string|null $suggestion */
         $suggestion = $cli->getOption(self::SUGGESTION_OPTION);
 
         return $cli->ask(
             question: 'Package license',
-            default: $suggestion,
+            default: $suggestion ?? 'MIT',
             normalizer: self::normalize(...),
         );
     }

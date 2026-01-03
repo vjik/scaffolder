@@ -18,7 +18,6 @@ use Vjik\Scaffolder\Params;
 final class PackageProject extends Fact
 {
     private const string VALUE_OPTION = 'package-project';
-    private const string DEFAULT_OPTION = 'package-project-default';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {
@@ -26,11 +25,6 @@ final class PackageProject extends Fact
             self::VALUE_OPTION,
             mode: InputOption::VALUE_OPTIONAL,
             default: $params->get(self::VALUE_OPTION),
-        );
-        $command->addOption(
-            self::DEFAULT_OPTION,
-            mode: InputOption::VALUE_OPTIONAL,
-            default: $params->get(self::DEFAULT_OPTION),
         );
     }
 
@@ -51,12 +45,8 @@ final class PackageProject extends Fact
             }
         }
 
-        /** @var string|null $default */
-        $default = $cli->getOption(self::DEFAULT_OPTION);
-
         return $cli->ask(
             question: 'Package project',
-            default: $default,
             normalizer: self::normalize(...),
         );
     }

@@ -18,7 +18,7 @@ use Vjik\Scaffolder\Params;
 final class PackageVendor extends Fact
 {
     private const string VALUE_OPTION = 'package-vendor';
-    private const string DEFAULT_OPTION = 'package-vendor-default';
+    private const string SUGGESTION_OPTION = 'package-vendor-suggestion';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {
@@ -28,9 +28,9 @@ final class PackageVendor extends Fact
             default: $params->get(self::VALUE_OPTION),
         );
         $command->addOption(
-            self::DEFAULT_OPTION,
+            self::SUGGESTION_OPTION,
             mode: InputOption::VALUE_OPTIONAL,
-            default: $params->get(self::DEFAULT_OPTION),
+            default: $params->get(self::SUGGESTION_OPTION),
         );
     }
 
@@ -51,12 +51,12 @@ final class PackageVendor extends Fact
             }
         }
 
-        /** @var string|null $default */
-        $default = $cli->getOption(self::DEFAULT_OPTION);
+        /** @var string|null $suggestion */
+        $suggestion = $cli->getOption(self::SUGGESTION_OPTION);
 
         return $cli->ask(
             question: 'Package vendor',
-            default: $default,
+            default: $suggestion,
             normalizer: self::normalize(...),
         );
     }
