@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use function count;
+use function in_array;
 use function is_array;
 use function sprintf;
 
@@ -19,7 +20,7 @@ use function sprintf;
 final readonly class Command
 {
     /**
-     * @param list<Change> $changes
+     * @param array<Change> $changes
      */
     public function __construct(
         private array $changes,
@@ -31,8 +32,14 @@ final readonly class Command
         $cli = new Cli($input, $output);
         $context = $this->createContext($input, $cli);
 
+        /** @var list<string> $disabledChanges */
+        $disabledChanges = $context->getParam('disable', []);
+
         $appliers = [];
-        foreach ($this->changes as $change) {
+        foreach ($this->changes as $name => $change) {
+            if (in_array($name, $disabledChanges, true)) {
+                continue;
+            }
             $applier = $change->decide($context);
             if ($applier === null) {
                 continue;
