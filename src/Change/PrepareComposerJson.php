@@ -12,6 +12,7 @@ use Vjik\Scaffolder\Fact\PackageAuthors;
 use Vjik\Scaffolder\Fact\PackageDescription;
 use Vjik\Scaffolder\Fact\PackageName;
 use Vjik\Scaffolder\Fact\PackageType;
+use Vjik\Scaffolder\Fact\PhpConstraint;
 use Vjik\Scaffolder\Value\PackageAuthor;
 
 final readonly class PrepareComposerJson implements Change
@@ -27,6 +28,8 @@ final readonly class PrepareComposerJson implements Change
             static fn(PackageAuthor $author) => $author->toArray(),
             $context->getFact(PackageAuthors::class),
         );
+        $new['require']['php'] ??= $context->getFact(PhpConstraint::class)->getPrettyString();
+        $new['config']['sort-packages'] = true;
 
         if ($new === $original) {
             return null;
