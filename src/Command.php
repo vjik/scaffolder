@@ -20,7 +20,7 @@ use function sprintf;
 final readonly class Command
 {
     /**
-     * @param array<Change> $changes
+     * @param array<Change|list<Change>> $changes
      */
     public function __construct(
         private array $changes,
@@ -32,14 +32,9 @@ final readonly class Command
         $cli = new Cli($input, $output);
         $context = $this->createContext($input, $cli);
 
-        /** @var list<string> $disabledChanges */
-        $disabledChanges = $context->getParam('disable', []);
-
         $appliers = [];
-        foreach ($this->changes as $name => $change) {
-            if (in_array($name, $disabledChanges, true)) {
-                continue;
-            }
+        $changes = $this->prepareChanges($context);
+        foreach ($changes as $change) {
             $applier = $change->decide($context);
             if ($applier === null) {
                 continue;
@@ -82,5 +77,29 @@ final readonly class Command
         }
 
         return new Context($directory, $cli, $this->params);
+    }
+
+    /**
+     * @return list<Change>
+     */
+    private function prepareChanges(Context $context): array
+    {
+        $changes = [];
+
+        /** @var list<string> $disabledChanges */
+        $disabledChanges = $context->getParam('disable', []);
+
+        foreach ($this->changes as $name => $change) {
+            if (in_array($name, $disabledChanges, true)) {
+                continue;
+            }
+            if (is_array($change)) {
+                $changes = array_merge($changes, $change);
+            } else {
+                $changes[] = $change;
+            }
+        }
+
+        return $changes;
     }
 }
