@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Vjik\Scaffolder\Change;
 
+use Vjik\Scaffolder\Applier\WriteComposerJson;
 use Vjik\Scaffolder\Change;
 use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
@@ -37,11 +38,9 @@ final readonly class PrepareComposerJson implements Change
             return null;
         }
 
-        $content = json_encode($new, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-
         return static fn(Cli $cli) => $cli->step(
             'Write `composer.json`',
-            fn() => $context->writeTextFile('composer.json', $content),
+            new WriteComposerJson($new, $context),
         );
     }
 }

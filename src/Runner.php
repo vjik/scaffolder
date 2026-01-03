@@ -24,6 +24,8 @@ final readonly class Runner
         Fact\PackageLicense::class,
         Fact\PackageType::class,
         Fact\PhpConstraint::class,
+        Fact\SourceDirectory::class,
+        Fact\TestsDirectory::class,
         Fact\Title::class,
         Fact\UserName::class,
         Fact\UserEmail::class,
