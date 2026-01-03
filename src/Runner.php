@@ -13,6 +13,7 @@ final readonly class Runner
      */
     private const array BUILT_IN_FACT_CLASSES = [
         Fact\ComposerJson::class,
+        Fact\PackageAuthors::class,
         Fact\CopyrightHolder::class,
         Fact\CopyrightYear::class,
         Fact\PackageVendor::class,

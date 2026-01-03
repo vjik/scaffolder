@@ -8,9 +8,11 @@ use Vjik\Scaffolder\Change;
 use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact\ComposerJson;
+use Vjik\Scaffolder\Fact\PackageAuthors;
 use Vjik\Scaffolder\Fact\PackageDescription;
 use Vjik\Scaffolder\Fact\PackageName;
 use Vjik\Scaffolder\Fact\PackageType;
+use Vjik\Scaffolder\Value\PackageAuthor;
 
 final readonly class PrepareComposerJson implements Change
 {
@@ -21,6 +23,10 @@ final readonly class PrepareComposerJson implements Change
         $new['name'] = $context->getFact(PackageName::class);
         $new['type'] = $context->getFact(PackageType::class);
         $new['description'] = $context->getFact(PackageDescription::class);
+        $new['authors'] = array_map(
+            static fn(PackageAuthor $author) => $author->toArray(),
+            $context->getFact(PackageAuthors::class),
+        );
 
         if ($new === $original) {
             return null;
