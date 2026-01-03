@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Vjik\Scaffolder\Fact;
 
-use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Vjik\Scaffolder\Cli;
 use Vjik\Scaffolder\Context;
 use Vjik\Scaffolder\Fact;
-use Vjik\Scaffolder\Params;
 use Vjik\Scaffolder\Value\PackageAuthor;
 
 /**
@@ -34,6 +32,10 @@ final class PackageAuthors extends Fact
             );
         }
 
-        return [new PackageAuthor(name: $context->getFact(UserName::class))];
+        return [
+            new PackageAuthor(
+                name: $context->getFact(UserName::class),
+                email: $context->getFact(UserEmail::class),
+            )];
     }
 }

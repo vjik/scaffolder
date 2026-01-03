@@ -24,6 +24,7 @@ final readonly class Runner
         Fact\PhpConstraint::class,
         Fact\Title::class,
         Fact\UserName::class,
+        Fact\UserEmail::class,
     ];
 
     /**

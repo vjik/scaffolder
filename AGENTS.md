@@ -101,6 +101,16 @@ execution, allowing the Command to collect all planned changes before applying.
 - **Do NOT add comments inside methods** unless explicitly requested. Code should be self-explanatory.
 - **PHPStan ignore for `ComposerJson`**: When using `Context::getFact(ComposerJson::class)`, add `// @phpstan-ignore argument.type` to suppress the template covariance error.
 
+### Fact Normalization
+
+When implementing a `Fact` that accepts a value from a command-line option and prompts the user for input when the option is not provided, **both paths must use the same normalizer** to ensure consistent validation:
+
+- Extract the normalizer into a private static method (e.g., `normalize()`)
+- Use the normalizer for option values: `return self::normalize($value);`
+- Use first-class callable syntax for interactive prompts: `normalizer: self::normalize(...)`
+
+See `UserEmail` for reference implementation.
+
 ### File Writing
 
 - **Use `writeTextFile()`** for text files (LICENSE, README.md, composer.json, .php files, etc.). This method ensures a trailing newline is added if missing, which is the standard convention for text files.
