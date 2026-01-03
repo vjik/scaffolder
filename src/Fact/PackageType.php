@@ -18,7 +18,7 @@ use Vjik\Scaffolder\Params;
 final class PackageType extends Fact
 {
     private const string VALUE_OPTION = 'package-type';
-    private const string SUGGESTION_OPTION = 'package-type-default';
+    private const string SUGGESTION_OPTION = 'package-type-suggestion';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {
