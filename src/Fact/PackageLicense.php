@@ -17,8 +17,8 @@ use Vjik\Scaffolder\Params;
  */
 final class PackageLicense extends Fact
 {
-    private const string VALUE_OPTION = 'package-license';
-    private const string SUGGESTION_OPTION = 'package-license-suggestion';
+    public const string VALUE_OPTION = 'package-license';
+    public const string SUGGESTION_OPTION = 'package-license-suggestion';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {

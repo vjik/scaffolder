@@ -17,8 +17,8 @@ use Vjik\Scaffolder\Value\CopyrightYear as CopyrightYearValue;
  */
 final class CopyrightYear extends Fact
 {
-    private const string YEAR_VALUE_OPTION = 'copyright-year';
-    private const string BEGIN_YEAR_VALUE_OPTION = 'copyright-year-begin';
+    public const string YEAR_VALUE_OPTION = 'copyright-year';
+    public const string BEGIN_YEAR_VALUE_OPTION = 'copyright-year-begin';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {

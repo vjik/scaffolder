@@ -17,8 +17,8 @@ use Vjik\Scaffolder\Params;
  */
 final class SourceDirectory extends Fact
 {
-    private const string VALUE_OPTION = 'source-directory';
-    private const string SUGGESTION_OPTION = 'source-directory-suggestion';
+    public const string VALUE_OPTION = 'source-directory';
+    public const string SUGGESTION_OPTION = 'source-directory-suggestion';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {

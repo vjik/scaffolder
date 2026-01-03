@@ -17,8 +17,8 @@ use Vjik\Scaffolder\Params;
  */
 final class PackageVendor extends Fact
 {
-    private const string VALUE_OPTION = 'package-vendor';
-    private const string SUGGESTION_OPTION = 'package-vendor-suggestion';
+    public const string VALUE_OPTION = 'package-vendor';
+    public const string SUGGESTION_OPTION = 'package-vendor-suggestion';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {

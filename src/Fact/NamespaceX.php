@@ -18,7 +18,7 @@ use Yiisoft\Strings\Inflector;
  */
 final class NamespaceX extends Fact
 {
-    private const string VALUE_OPTION = 'namespace';
+    public const string VALUE_OPTION = 'namespace';
     private const string REGEX = '/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*+(?>\\\[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*+)++$/';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void

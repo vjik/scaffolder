@@ -16,7 +16,7 @@ use Vjik\Scaffolder\Params;
  */
 final class PackageDescription extends Fact
 {
-    private const string VALUE_OPTION = 'package-description';
+    public const string VALUE_OPTION = 'package-description';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {

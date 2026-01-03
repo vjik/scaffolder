@@ -17,8 +17,8 @@ use Vjik\Scaffolder\Params;
  */
 final class CopyrightHolder extends Fact
 {
-    private const string VALUE_OPTION = 'copyright-holder';
-    private const string SUGGESTION_OPTION = 'copyright-holder-suggestion';
+    public const string VALUE_OPTION = 'copyright-holder';
+    public const string SUGGESTION_OPTION = 'copyright-holder-suggestion';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {

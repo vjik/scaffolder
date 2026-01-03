@@ -17,8 +17,8 @@ use Vjik\Scaffolder\Params;
  */
 final class UserEmail extends Fact
 {
-    private const string VALUE_OPTION = 'user-email';
-    private const string SUGGESTION_OPTION = 'user-email-suggestion';
+    public const string VALUE_OPTION = 'user-email';
+    public const string SUGGESTION_OPTION = 'user-email-suggestion';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {

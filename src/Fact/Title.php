@@ -16,7 +16,7 @@ use Vjik\Scaffolder\Params;
  */
 final class Title extends Fact
 {
-    private const string VALUE_OPTION = 'title';
+    public const string VALUE_OPTION = 'title';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {

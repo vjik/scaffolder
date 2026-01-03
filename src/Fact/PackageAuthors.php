@@ -14,7 +14,7 @@ use Vjik\Scaffolder\Value\PackageAuthor;
  */
 final class PackageAuthors extends Fact
 {
-    private const string VALUE_OPTION = 'package-authors';
+    public const string VALUE_OPTION = 'package-authors';
 
     public static function resolve(Cli $cli, Context $context): mixed
     {

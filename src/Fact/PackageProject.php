@@ -17,7 +17,7 @@ use Vjik\Scaffolder\Params;
  */
 final class PackageProject extends Fact
 {
-    private const string VALUE_OPTION = 'package-project';
+    public const string VALUE_OPTION = 'package-project';
 
     public static function configureCommand(SymfonyCommand $command, Params $params): void
     {
