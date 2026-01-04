@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Vjik\Scaffolder;
 
 use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\SingleCommandApplication;
 
@@ -75,18 +74,13 @@ final readonly class Runner
 
     private function createParams(): Params
     {
-        $input = new ArgvInput(
-            definition: new InputDefinition([
-                new InputOption('directory', mode: InputOption::VALUE_OPTIONAL, default: getcwd()),
-                new InputOption('scaffolder-file', mode: InputOption::VALUE_OPTIONAL, default: 'scaffolder.php'),
-            ]),
-        );
+        $input = new ArgvInput();
 
         /** @var string $directory */
-        $directory = $input->getOption('directory');
+        $directory = $input->getParameterOption(['--directory'], getcwd());
 
         /** @var string $fileName */
-        $fileName = $input->getOption('scaffolder-file');
+        $fileName = $input->getParameterOption(['--scaffolder-file'], 'scaffolder.php');
 
         $scaffolderFile = $directory . '/' . $fileName;
 
