@@ -1,0 +1,34 @@
+name: Composer Dependency Analyser
+
+on:
+  workflow_call:
+  pull_request:
+
+jobs:
+  composer-require-checker:
+    name: PHP ${{ matrix.php }}-${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        php:
+          - "8.4"
+
+    steps:
+      - name: Checkout.
+        uses: actions/checkout@v6
+
+      - name: Install PHP with extensions.
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Check dependencies
+        run: vendor/bin/composer-dependency-analyser

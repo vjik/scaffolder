@@ -27,7 +27,7 @@ final class PackageAuthors extends Fact
         $composerJson = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
         if (isset($composerJson['authors'])) {
             return array_map(
-                static fn(array $author): PackageAuthor => PackageAuthor::fromArray($author),
+                PackageAuthor::fromArray(...),
                 $composerJson['authors'],
             );
         }
