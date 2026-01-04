@@ -60,7 +60,7 @@ final readonly class PrepareComposerJson implements Change
             static fn(PackageAuthor $author) => $author->toArray(),
             $context->getFact(PackageAuthors::class),
         );
-        $new['require'][$context->getFact(PhpConstraintName::class)] ??= $context->getFact(PhpConstraint::class)->getPrettyString();
+        $new['require'][$context->getFact(PhpConstraintName::class)] = $context->getFact(PhpConstraint::class)->getPrettyString();
         $new['config']['sort-packages'] = true;
         $this->prepareAutoload($new, $context);
         $this->prepareBumpAfterUpdate($new, $context);
