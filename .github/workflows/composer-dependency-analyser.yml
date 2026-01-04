@@ -1,7 +1,6 @@
 name: Composer Dependency Analyser
 
 on:
-  workflow_call:
   pull_request:
 
 jobs:
