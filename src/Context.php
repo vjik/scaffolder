@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Vjik\Scaffolder;
 
+use LogicException;
 use Stringable;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 
 use function array_key_exists;
+use function sprintf;
 
 final class Context
 {
@@ -32,6 +34,22 @@ final class Context
         return $this->filesystem->exists(
             $this->locateFile($file),
         );
+    }
+
+    public function isDirectory(string $path): bool
+    {
+        return is_dir($this->locateFile($path));
+    }
+
+    public function isDirectoryEmpty(string $directory): bool
+    {
+        $path = $this->locateFile($directory);
+        if (!is_dir($path)) {
+            throw new LogicException(sprintf('Path "%s" is not a directory.', $directory));
+        }
+
+        $files = scandir($path);
+        return $files === ['.', '..'];
     }
 
     /**
