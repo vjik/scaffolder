@@ -23,6 +23,7 @@ final readonly class Runner
         Fact\PackageProject::class,
         Fact\PackageName::class,
         Fact\LowestMinorPhpVersion::class,
+        Fact\HighestMinorPhpVersion::class,
         Fact\NamespaceX::class,
         Fact\PackageDescription::class,
         Fact\PackageLicense::class,
