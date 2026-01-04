@@ -16,6 +16,7 @@ use Vjik\Scaffolder\Fact\PackageLicense;
 use Vjik\Scaffolder\Fact\PackageName;
 use Vjik\Scaffolder\Fact\PackageType;
 use Vjik\Scaffolder\Fact\PhpConstraint;
+use Vjik\Scaffolder\Fact\PhpConstraintName;
 use Vjik\Scaffolder\Fact\PrepareComposerAutoload;
 use Vjik\Scaffolder\Fact\PrepareComposerAutoloadDev;
 use Vjik\Scaffolder\Fact\SourceDirectory;
@@ -59,7 +60,7 @@ final readonly class PrepareComposerJson implements Change
             static fn(PackageAuthor $author) => $author->toArray(),
             $context->getFact(PackageAuthors::class),
         );
-        $new['require']['php'] ??= $context->getFact(PhpConstraint::class)->getPrettyString();
+        $new['require'][$context->getFact(PhpConstraintName::class)] ??= $context->getFact(PhpConstraint::class)->getPrettyString();
         $new['config']['sort-packages'] = true;
         $this->prepareAutoload($new, $context);
         $this->prepareBumpAfterUpdate($new, $context);

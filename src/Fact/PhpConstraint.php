@@ -34,10 +34,11 @@ final class PhpConstraint extends Fact
     public static function resolve(Cli $cli, Context $context): ConstraintInterface
     {
         $composerJson = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
+        $constraintName = $context->getFact(PhpConstraintName::class);
 
-        if (isset($composerJson['require']['php'])) {
+        if (isset($composerJson['require'][$constraintName])) {
             try {
-                return self::normalize($composerJson['require']['php']);
+                return self::normalize($composerJson['require'][$constraintName]);
             } catch (NormalizeInputException) {
             }
         }
