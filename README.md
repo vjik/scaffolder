@@ -174,3 +174,8 @@ If you have any questions or problems with this package, use [author telegram ch
 
 The `vjik/scaffolder` is free software. It is released under the terms of the BSD License.
 Please see [`LICENSE`](./LICENSE) for more information.
+
+## Credits
+
+The package is inspired by [phpyh/scaffolder](https://github.com/phpyh/scaffolder) code originally created
+by [Valentin Udaltsov](https://github.com/vudaltsov).
