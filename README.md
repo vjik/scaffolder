@@ -1,20 +1,20 @@
 # PHP Scaffolder Library
 
+[![Latest Stable Version](https://poser.pugx.org/vjik/scaffolder/v)](https://packagist.org/packages/vjik/scaffolder)
+[![Total Downloads](https://poser.pugx.org/vjik/scaffolder/downloads)](https://packagist.org/packages/vjik/scaffolder)
+
 A PHP library for making automated changes to project files through a decision-based architecture.
-
-## Quick Start
-
-A ready-made scaffolder tool built on top of this library is available at 
-[vjik/scaffolder-template](https://github.com/vjik/scaffolder-template). This template provides a complete scaffolder
-framework that you can clone and customize for your projects.
-
-## Projects Using Scaffolder
 
 Real-world examples of a scaffolder tool built using this library:
 
 - [PHPTG Scaffolder](https://github.com/phptg/scaffolder)
 
 ## General Usage
+
+> [!NOTE]
+> A ready-made scaffolder tool built on top of this library is available at
+> [vjik/scaffolder-template](https://github.com/vjik/scaffolder-template). This template provides a complete scaffolder
+> framework that you can clone and customize for your projects.
 
 The scaffolder allows you to automate project file modifications through a declarative approach. Create a PHP
 script that defines the changes you want to apply:
