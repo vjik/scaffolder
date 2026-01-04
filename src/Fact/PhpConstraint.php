@@ -20,19 +20,31 @@ use Vjik\Scaffolder\Params;
  */
 final class PhpConstraint extends Fact
 {
+    public const string VALUE_OPTION = 'php-constraint';
     public const string SUGGESTION_OPTION = 'php-constraint-suggestion';
 
     public static function configureCommand(Command $command, Params $params): void
     {
         $command->addOption(
+            self::VALUE_OPTION,
+            mode: InputOption::VALUE_OPTIONAL,
+            default: $params->get(self::VALUE_OPTION),
+        );
+        $command->addOption(
             self::SUGGESTION_OPTION,
-            mode: InputOption::VALUE_REQUIRED,
+            mode: InputOption::VALUE_OPTIONAL,
             default: $params->get(self::SUGGESTION_OPTION),
         );
     }
 
     public static function resolve(Cli $cli, Context $context): ConstraintInterface
     {
+        /** @var string|null $value */
+        $value = $cli->getOption(self::VALUE_OPTION);
+        if ($value !== null && $value !== '') {
+            return self::normalize($value);
+        }
+
         $composerJson = $context->getFact(ComposerJson::class); // @phpstan-ignore argument.type
         $constraintName = $context->getFact(PhpConstraintName::class);
 
