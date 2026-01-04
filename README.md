@@ -2,12 +2,11 @@
 
 A PHP library for making automated changes to project files through a decision-based architecture.
 
-**Quick Start with Template**
+## Quick Start
 
 A ready-made scaffolder tool built on top of this library is available at 
-[vjik/scaffolder-template](https://github.com/vjik/scaffolder-template).
-
-This template provides a complete scaffolder framework that you can clone and customize for your projects.
+[vjik/scaffolder-template](https://github.com/vjik/scaffolder-template). This template provides a complete scaffolder
+framework that you can clone and customize for your projects.
 
 ## Projects Using Scaffolder
 
