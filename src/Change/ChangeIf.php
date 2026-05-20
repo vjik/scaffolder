@@ -11,6 +11,9 @@ use Vjik\Scaffolder\Fact;
 use function is_array;
 use function is_callable;
 
+/**
+ * @phpstan-import-type ApplierCallable from Change
+ */
 final readonly class ChangeIf implements Change
 {
     /**
@@ -42,6 +45,7 @@ final readonly class ChangeIf implements Change
                 continue;
             }
             if (is_callable($applier)) {
+                /** @var ApplierCallable $applier */
                 $appliers[] = $applier;
             } else {
                 $appliers = array_merge($appliers, $applier);
