@@ -56,12 +56,9 @@ final readonly class PrepareComposerJson implements Change
         $new['type'] = $context->getFact(PackageType::class);
         $new['description'] = $context->getFact(PackageDescription::class);
         $new['license'] = $context->getFact(PackageLicense::class);
-        $new['authors'] = array_map(
-            static fn(PackageAuthor $author) => $author->toArray(),
-            $context->getFact(PackageAuthors::class),
-        );
         $new['require'][$context->getFact(PhpConstraintName::class)] = $context->getFact(PhpConstraint::class)->getPrettyString();
         $new['config']['sort-packages'] = true;
+        $this->prepareAuthors($new, $context);
         $this->prepareAutoload($new, $context);
         $this->prepareBumpAfterUpdate($new, $context);
 
@@ -87,6 +84,21 @@ final readonly class PrepareComposerJson implements Change
                 ),
             ),
         ];
+    }
+
+    private function prepareAuthors(array &$composerJson, Context $context): void
+    {
+        /** @var ComposerJsonArray $composerJson */
+
+        $authors = $context->getFact(PackageAuthors::class);
+        if ($authors === []) {
+            return;
+        }
+
+        $composerJson['authors'] = array_map(
+            static fn(PackageAuthor $author) => $author->toArray(),
+            $authors,
+        );
     }
 
     private function prepareAutoload(array &$composerJson, Context $context): void
